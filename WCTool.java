@@ -42,15 +42,13 @@ public class WCTool {
     }
 
     public static long printFileChars(String filename) throws IOException {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             long chars = 0;
             String line;
             while ((line = reader.readLine()) != null) {
-                chars += line.length();
+                chars += line.length()+1;
             }
-            reader.close();
-            return chars;
+            return chars-1;
         } catch (FileNotFoundException e) {
             return -1;
         }
